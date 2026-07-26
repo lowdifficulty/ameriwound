@@ -1,0 +1,10 @@
+{
+  "dumps": [
+    {
+      "id": "default-wound-template",
+      "title": "Standard Wound Care Note Template",
+      "content": "Wound care documentation should include: Patient identification, wound location and laterality, wound type/etiology, wound measurements (length x width x depth in cm), wound bed appearance (granulation %, slough %, eschar %), periwound skin condition, exudate type and amount, odor, pain level (0-10), infection signs, offloading/pressure redistribution, dressing applied, patient/caregiver education provided, plan of care and follow-up interval. Use objective clinical language. Document staging for pressure injuries per NPIAP guidelines.",
+      "createdAt": "2026-07-26T00:00:00.000Z"
+    }
+  ]
+}

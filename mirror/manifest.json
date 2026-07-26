@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-07-26T23:37:44.245Z",
+  "site": "https://ameriwound.com",
+  "total": 19,
+  "routes": [
+    {
+      "route": "/",
+      "url": "https://ameriwound.com/",
+      "file": "mirror/html/index.html"
+    },
+    {
+      "route": "/2026-provider-meetings",
+      "url": "https://ameriwound.com/2026-provider-meetings/",
+      "file": "mirror/html/2026-provider-meetings/index.html"
+    },
+    {
+      "route": "/about-ameriwound",
+      "url": "https://ameriwound.com/about-ameriwound/",
+      "file": "mirror/html/about-ameriwound/index.html"
+    },
+    {
+      "route": "/archived-provider-meetings",
+      "url": "https://ameriwound.com/archived-provider-meetings/",
+      "file": "mirror/html/archived-provider-meetings/index.html"
+    },
+    {
+      "route": "/careers",
+      "url": "https://ameriwound.com/careers/",
+      "file": "mirror/html/careers/index.html"
+    },
+    {
+      "route": "/contact-us",
+      "url": "https://ameriwound.com/contact-us/",
+      "file": "mirror/html/contact-us/index.html"
+    },
+    {
+      "route": "/cookie-policy",
+      "url": "https://ameriwound.com/cookie-policy/",
+      "file": "mirror/html/cookie-policy/index.html"
+    },
+    {
+      "route": "/current-openings",
+      "url": "https://ameriwound.com/current-openings/",
+      "file": "mirror/html/current-openings/index.html"
+    },
+    {
+      "route": "/education",
+      "url": "https://ameriwound.com/education/",
+      "file": "mirror/html/education/index.html"
+    },
+    {
+      "route": "/facilities",
+      "url": "https://ameriwound.com/facilities/",
+      "file": "mirror/html/facilities/index.html"
+    },
+    {
+      "route": "/facility-portal",
+      "url": "https://ameriwound.com/facility-portal/",
+      "file": "mirror/html/facility-portal/index.html"
+    },
+    {
+      "route": "/g-tube-and-supra-pubic-intake-form",
+      "url": "https://ameriwound.com/g-tube-and-supra-pubic-intake-form/",
+      "file": "mirror/html/g-tube-and-supra-pubic-intake-form/index.html"
+    },
+    {
+      "route": "/health-records-portal",
+      "url": "https://ameriwound.com/health-records-portal/",
+      "file": "mirror/html/health-records-portal/index.html"
+    },
+    {
+      "route": "/meet-the-team",
+      "url": "https://ameriwound.com/meet-the-team/",
+      "file": "mirror/html/meet-the-team/index.html"
+    },
+    {
+      "route": "/patient-portal",
+      "url": "https://ameriwound.com/patient-portal/",
+      "file": "mirror/html/patient-portal/index.html"
+    },
+    {
+      "route": "/privacy-policy",
+      "url": "https://ameriwound.com/privacy-policy/",
+      "file": "mirror/html/privacy-policy/index.html"
+    },
+    {
+      "route": "/provider-login",
+      "url": "https://ameriwound.com/provider-login/",
+      "file": "mirror/html/provider-login/index.html"
+    },
+    {
+      "route": "/terms-of-use",
+      "url": "https://ameriwound.com/terms-of-use/",
+      "file": "mirror/html/terms-of-use/index.html"
+    },
+    {
+      "route": "/woundquick",
+      "url": "https://ameriwound.com/woundquick/",
+      "file": "mirror/html/woundquick/index.html"
+    }
+  ]
+}

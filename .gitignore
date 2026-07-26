@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.vercel/
+.env.local
+.local-server.log
+.local-server.pid
+wp-*.json
+lighthouse*.json
+lh-*.json
+
+# Downloaded at build time via npm run download-assets
+public/assets/wp-content/
