@@ -1,3 +1,5 @@
+import "./portal.css";
+
 export const metadata = {
   title: "AmeriWound AI — Clinical Documentation Portal",
   description: "AI-powered wound care note generation for AmeriWound providers",
