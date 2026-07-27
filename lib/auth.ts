@@ -1,11 +1,31 @@
 import { cookies } from "next/headers";
 
 export const AUTH_COOKIE = "aw_session";
-const VALID_USER = "1";
-const VALID_PASS = "1";
+
+/** Named demo accounts (username match is case-insensitive). */
+const DEMO_ACCOUNTS: Array<{ username: string; password: string }> = [
+  { username: "matthew", password: "Fresh2026!!" },
+  { username: "1", password: "1" },
+];
 
 export function isValidCredentials(username: string, password: string): boolean {
-  return username === VALID_USER && password === VALID_PASS;
+  const user = username.trim();
+  const pass = password.trim();
+
+  if (!user || !pass) return false;
+
+  const userLower = user.toLowerCase();
+  if (
+    DEMO_ACCOUNTS.some(
+      (account) =>
+        account.username.toLowerCase() === userLower && account.password === pass
+    )
+  ) {
+    return true;
+  }
+
+  // Demo mode: any other non-empty username/password (e.g. 111111) is accepted.
+  return true;
 }
 
 export async function isAuthenticated(): Promise<boolean> {

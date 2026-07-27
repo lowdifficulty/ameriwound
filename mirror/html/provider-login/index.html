@@ -265,7 +265,36 @@ background:#003366;
 				.lg-thumb-item.active {
 					opacity: 1;
 				}
-	         </style></head>
+	         </style><style id="aw-site-fixes-css">
+/* Header — reduce excess top spacing above nav */
+.elementor-location-header .elementor-element-088c329 {
+  display: none !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.elementor-location-header .elementor-element-9e34fa0,
+.elementor-location-header .elementor-element-17df919,
+.elementor-location-header .elementor-element-f0a42c3,
+.elementor-location-header .elementor-element-eb418f0,
+.elementor-location-header .elementor-element-6f03d4e,
+.elementor-location-header .elementor-element-49bdf44 {
+  padding-top: 4px !important;
+}
+
+/* Home careers section — keep copy off the viewport edge */
+.elementor-element-2c66bffa > .elementor-container {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+}
+</style>
+</head>
 <body class="wp-singular page-template-default page page-id-18133 wp-custom-logo wp-theme-medicate wp-child-theme-medicate-child acwp-readable-arial page-two-column elementor-default elementor-kit-10 elementor-page elementor-page-18133">
 		<header data-elementor-type="header" data-elementor-id="17395" class="elementor elementor-17395 elementor-location-header" data-elementor-post-type="elementor_library">
 			<div class="elementor-element elementor-element-088c329 e-flex e-con-boxed wpr-particle-no wpr-jarallax-no wpr-parallax-no wpr-sticky-section-no wpr-column-slider-no wpr-equal-height-no e-con e-parent" data-id="088c329" data-element_type="container" data-e-type="container">
@@ -276,7 +305,7 @@ background:#003366;
 		<div class="elementor-element elementor-element-f0a42c3 e-con-full e-flex wpr-particle-no wpr-jarallax-no wpr-parallax-no wpr-sticky-section-no wpr-column-slider-no wpr-equal-height-no e-con e-child" data-id="f0a42c3" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-c5e71dd elementor-widget__width-initial elementor-widget-mobile__width-initial elementor-widget-tablet__width-initial elementor-widget elementor-widget-theme-site-logo elementor-widget-image" data-id="c5e71dd" data-element_type="widget" data-e-type="widget" data-widget_type="theme-site-logo.default">
 				<div class="elementor-widget-container">
-											<a href="https://ameriwound.com">
+											<a href="/">
 			<img width="350" height="100" src="/assets/wp-content/uploads/2024/11/site-logo350x100.svg" class="attachment-full size-full wp-image-17416" alt="" />				</a>
 											</div>
 				</div>
@@ -349,7 +378,7 @@ background:#003366;
 		<div class="elementor-element elementor-element-6f03d4e e-con-full e-flex wpr-particle-no wpr-jarallax-no wpr-parallax-no wpr-sticky-section-no wpr-column-slider-no wpr-equal-height-no e-con e-child" data-id="6f03d4e" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-05a58af elementor-widget__width-initial elementor-widget-mobile__width-initial elementor-widget-tablet__width-initial elementor-widget elementor-widget-theme-site-logo elementor-widget-image" data-id="05a58af" data-element_type="widget" data-e-type="widget" data-widget_type="theme-site-logo.default">
 				<div class="elementor-widget-container">
-											<a href="https://ameriwound.com">
+											<a href="/">
 			<img width="350" height="100" src="/assets/wp-content/uploads/2024/11/site-logo350x100.svg" class="attachment-full size-full wp-image-17416" alt="" />				</a>
 											</div>
 				</div>
@@ -838,12 +867,12 @@ background:#003366;
 /*# sourceURL=wpforms-modern-full-inline-css */
 </style>
 <script id="acwp-toolbar-js-extra">
-var acwp_attr = {"fontsizer_customtags":"","fontsize_excludetags":"","fontsizer_max":"","fontsizer_min":"","fontsizer_nolineheight":"","hide_fontsize":"","no_btn_drage":"","contrast_exclude":"","nocookies":"","blogurl":"https://ameriwound.com"};
+var acwp_attr = {"fontsizer_customtags":"","fontsize_excludetags":"","fontsizer_max":"","fontsizer_min":"","fontsizer_nolineheight":"","hide_fontsize":"","no_btn_drage":"","contrast_exclude":"","nocookies":"","blogurl":"/"};
 //# sourceURL=acwp-toolbar-js-extra
 </script>
 <script id="acwp-toolbar-js" src="/assets/wp-content/plugins/accessible-poetry/assets/js/toolbar.js?ver=7.0.2"></script>
 <script id="plugin-frontend-js-js-extra">
-var AccessibleWPData = {"siteUrl":"https://ameriwound.com"};
+var AccessibleWPData = {"siteUrl":"/"};
 //# sourceURL=plugin-frontend-js-js-extra
 </script>
 <script id="plugin-frontend-js-js" src="/assets/wp-content/plugins/accessible-poetry/inc/frontend.js?ver=1.0"></script>
@@ -924,5 +953,8 @@ var wpforms_settings = {"val_required":"This field is required.","val_email":"Pl
 /* ]]> */
 </script>
 
+<script id="aw-nav-menu-fix">
+(function(){function initNavMenus(){if(typeof elementorFrontend==='undefined'||typeof jQuery==='undefined'||!jQuery.fn.smartmenus)return;document.querySelectorAll('.elementor-widget-nav-menu').forEach(function(el){try{elementorFrontend.elementsHandler.runReadyTrigger(el);}catch(e){}});}window.addEventListener('load',initNavMenus);if(typeof jQuery!=='undefined')jQuery(window).on('elementor/frontend/init',initNavMenus);})();
+</script>
 </body>
 </html>

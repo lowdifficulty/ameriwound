@@ -1,0 +1,740 @@
+PATIENT NAME: Robert Michael Hayes
+DATE OF BIRTH: February 14, 1958
+AGE: 68
+SEX: Male
+MEDICAL RECORD NUMBER: DEMO-284719
+ENCOUNTER NUMBER: AWD-20260727-0418
+DATE OF SERVICE: July 27, 2026
+ARRIVAL TIME: 9:52 AM
+ENCOUNTER START TIME: 10:06 AM
+ENCOUNTER END TIME: 10:39 AM
+PROVIDER: Emily Carter, MD
+FACILITY: AmeriWound Advanced Wound Care Center
+LOCATION: Orange County Demonstration Clinic
+VISIT TYPE: Established wound-care follow-up
+CHIEF COMPLAINT: Follow-up of right plantar diabetic foot ulcer and evaluation for AmchoPlast application number five
+
+Robert Michael Hayes is a 68-year-old male with a history of type 2 diabetes mellitus, diabetic peripheral neuropathy, hypertension, and a chronic diabetic ulcer located on the plantar surface of the right forefoot beneath the first metatarsal head.
+
+The patient is currently undergoing a planned series of AmchoPlast applications and presents today for wound reassessment, medically necessary wound-bed preparation, and possible AmchoPlast application number five.
+
+The patient reports continued improvement since his previous wound-care visit on July 20, 2026. He states that the wound is significantly less painful and that he can move around his home more comfortably while wearing his prescribed offloading boot.
+
+Current wound-related pain is rated 1/10. Before beginning the current AmchoPlast treatment series on June 29, 2026, the patient reports pain was typically 3–4/10 and was frequently associated with nighttime throbbing. He denies current throbbing pain.
+
+The patient reports decreased wound drainage compared with prior visits. He describes the drainage as a small amount of light red or clear fluid. He denies thick, yellow, green, or purulent drainage.
+
+The outer portion of the dressing became loose on July 24, 2026, and was reinforced by the patient’s wife using clean rolled gauze. The primary nonadherent contact layer was not removed or disturbed.
+
+The patient denies:
+
+Fever
+Chills
+Nausea
+Vomiting
+Malaise
+Increasing fatigue
+Increasing wound pain
+Purulent drainage
+Foul odor
+Spreading redness
+Increased warmth
+Increased swelling
+New discoloration of the foot
+New trauma to the wound
+New numbness beyond his established neuropathy
+
+The patient reports improved overall energy and states, “I feel better, and I can tell the wound is healing.”
+
+He reports compliance with the prescribed removable offloading boot during all standing and ambulation. He removes the boot while seated in his recliner and while sleeping but applies it before standing. He denies barefoot walking during the past week.
+
+The patient reports fasting blood glucose readings generally ranging from 118 to 145 mg/dL. His fasting glucose on the morning of July 27, 2026, was 126 mg/dL. His highest recent glucose reading was approximately 160 mg/dL after dinner on July 23, 2026.
+
+He denies blood glucose readings above 200 mg/dL or below 70 mg/dL during the past week.
+
+The patient reports taking the following medications as prescribed:
+
+Metformin extended-release 1,000 mg by mouth twice daily
+Empagliflozin 10 mg by mouth once daily
+Lisinopril 20 mg by mouth once daily
+Atorvastatin 40 mg by mouth nightly
+Aspirin 81 mg by mouth once daily
+
+The patient is a former smoker. He reports smoking approximately one pack per day for 20 years before quitting in 2008. He denies current tobacco or nicotine use.
+
+The patient reports adequate oral intake. His wife has encouraged increased dietary protein, including eggs, chicken, Greek yogurt, and a daily protein shake. He estimates drinking approximately 64 ounces of water daily.
+
+ALLERGIES
+
+Penicillin: Rash
+No known adhesive allergy
+No known sensitivity to dressing materials
+
+VITAL SIGNS
+
+Blood pressure: 132/76 mmHg
+Heart rate: 74 beats per minute
+Respiratory rate: 16 breaths per minute
+Temperature: 98.1°F
+Oxygen saturation: 98% on room air
+Height: 72 inches
+Weight: 193 pounds
+Body mass index: 26.2 kg/m²
+Point-of-care glucose: 131 mg/dL
+
+GENERAL
+
+Patient is alert and oriented to person, place, time, and situation. He is cooperative, conversant, and in no acute distress. He appears comfortable throughout the examination and procedure.
+
+CARDIOPULMONARY
+
+Respirations are even and unlabored. No respiratory distress is observed. Patient is able to speak in complete sentences.
+
+EXTREMITIES
+
+No acute calf tenderness is present. No asymmetric lower-extremity swelling is observed. There is trace right ankle edema without progression from the previous examination.
+
+VASCULAR EXAMINATION
+
+The right foot is warm to the touch.
+
+Capillary refill is less than three seconds in the right toes.
+
+Right dorsalis pedis arterial signal is biphasic by handheld Doppler.
+
+Right posterior tibial arterial signal is biphasic by handheld Doppler.
+
+No cyanosis, pallor, dependent rubor, or acute ischemic skin changes are observed.
+
+Most recent ankle-brachial index performed June 18, 2026:
+
+Right ABI: 0.96
+Left ABI: 1.01
+
+Findings are considered adequate to support wound healing and the current treatment plan.
+
+NEUROLOGICAL EXAMINATION
+
+Protective sensation is reduced in the right foot, consistent with established diabetic peripheral neuropathy.
+
+The patient correctly identifies 3 of 10 tested sites using a 5.07 Semmes-Weinstein monofilament on the right foot.
+
+The patient reports pressure during examination and debridement but no significant pain.
+
+MUSCULOSKELETAL AND OFFLOADING ASSESSMENT
+
+The patient ambulates using a removable pneumatic offloading boot on the right lower extremity.
+
+The boot is present at today’s visit and demonstrates appropriate fit without evidence of friction injury.
+
+Prominence beneath the right first metatarsal head contributes to focal plantar pressure at the wound location.
+
+SKIN AND PERIWOUND EXAMINATION
+
+The periwound skin is intact.
+
+There is no spreading erythema.
+
+There is no increased periwound warmth.
+
+There is no fluctuance, crepitus, induration, lymphangitic streaking, or clinical cellulitis.
+
+There is no significant maceration.
+
+There is mild hyperkeratotic tissue along the medial wound margin.
+
+No new pressure injury is identified.
+
+WOUND NUMBER: 1
+
+Wound location:
+
+Plantar surface of the right foot beneath the first metatarsal head
+
+Wound etiology:
+
+Diabetic and neuropathic foot ulcer
+
+Date wound initially identified:
+
+May 18, 2026
+
+Approximate wound duration:
+
+10 weeks
+
+Wound classification:
+
+Full-thickness ulcer extending through the skin into exposed subcutaneous tissue
+
+Wagner classification:
+
+Wagner grade 2
+
+Baseline measurement before the first AmchoPlast application on June 29, 2026:
+
+2.5 cm length × 2.0 cm width × 0.3 cm depth
+
+Baseline surface area:
+
+5.00 cm²
+
+Baseline volume:
+
+1.50 cm³
+
+Measurement at previous visit on July 20, 2026:
+
+1.6 cm length × 1.2 cm width × 0.2 cm depth
+
+Previous surface area:
+
+1.92 cm²
+
+Current pre-debridement measurement on July 27, 2026:
+
+1.3 cm length × 0.9 cm width × 0.2 cm depth
+
+Current pre-debridement surface area:
+
+1.17 cm²
+
+Current pre-debridement volume:
+
+0.234 cm³
+
+Calculated reduction in wound surface area from baseline:
+
+76.6%
+
+Calculated reduction in wound volume from baseline:
+
+84.4%
+
+Wound bed before debridement:
+
+85% healthy red granulation tissue
+15% thin yellow fibrinous slough
+
+Drainage:
+
+Small amount of serosanguineous drainage
+
+Odor:
+
+None before or after cleansing
+
+Wound margins:
+
+Visible and attached with a small amount of hyperkeratotic tissue along the medial margin
+
+Periwound condition:
+
+Intact, dry, and without erythema or maceration
+
+Undermining:
+
+None identified
+
+Tunneling:
+
+None identified
+
+Exposed structures:
+
+Subcutaneous adipose tissue is visible.
+
+No exposed tendon, muscle, fascia, joint capsule, or bone is present.
+
+Probe-to-bone examination:
+
+Negative
+
+Clinical infection assessment:
+
+No clinical signs or symptoms of acute wound infection
+
+No purulent drainage, spreading erythema, increased warmth, fluctuance, crepitus, malodor, or systemic signs of infection are present.
+
+Wound culture:
+
+Not obtained because there is no clinical evidence of infection.
+
+The patient has received more than four weeks of documented standard wound care, including:
+
+Regular wound assessment and measurement
+Sharp debridement when medically necessary
+Moisture-balancing dressings
+Pressure offloading
+Diabetes management
+Nutritional counseling
+Infection surveillance
+Patient and caregiver education
+Vascular assessment
+Smoking-cessation maintenance
+
+Despite standard wound care, the ulcer remained open and full thickness before initiation of the current AmchoPlast treatment series.
+
+The wound has demonstrated continued measurable improvement during the treatment series. Surface area has decreased from 5.00 cm² at baseline to 1.17 cm² today, representing a 76.6% reduction.
+
+The wound remains open and has not yet achieved complete epithelial closure. Continued treatment is considered medically appropriate because the wound continues to demonstrate progressive healing without evidence of infection, ischemia, or treatment-related complication.
+
+PROCEDURE DATE:
+
+July 27, 2026
+
+PROCEDURE START TIME:
+
+10:18 AM
+
+PROCEDURE COMPLETION TIME:
+
+10:24 AM
+
+PROCEDURE PERFORMED BY:
+
+Emily Carter, MD
+
+ASSISTED BY:
+
+Jessica Monroe, RN
+
+PROCEDURE LOCATION:
+
+Right plantar forefoot beneath the first metatarsal head
+
+The wound condition, proposed treatment, expected benefits, material risks, and available alternatives were discussed with the patient.
+
+Discussed risks included pain, bleeding, infection, irritation, delayed healing, damage to surrounding tissue, failure to improve, and possible worsening of the wound despite appropriate treatment.
+
+The option of continuing standard wound care without debridement or AmchoPlast application was discussed.
+
+The patient demonstrated understanding, had the opportunity to ask questions, and provided verbal consent to proceed.
+
+A procedural time-out was completed at 10:17 AM to verify:
+
+Correct patient
+Correct date of birth
+Correct procedure
+Correct anatomical site
+Correct wound
+Product availability
+Known allergies
+Consent
+
+The wound was cleansed with sterile normal saline.
+
+Topical 4% lidocaine solution was applied to the wound bed and allowed to remain in place for approximately five minutes.
+
+Using a sterile number 5 curette, excisional debridement was performed to remove slough, hyperkeratotic tissue, and nonviable tissue from the wound bed and wound margins.
+
+Debridement extended through the epidermis, dermis, and subcutaneous tissue.
+
+Devitalized tissue removed included:
+
+Fibrinous slough
+Nonviable subcutaneous tissue
+Hyperkeratotic wound-edge tissue
+Surface biofilm
+
+Percentage of wound debrided:
+
+100%
+
+Total surface area debrided:
+
+1.40 cm²
+
+Minimal pinpoint bleeding was encountered and controlled with direct pressure using sterile gauze.
+
+The patient reported pressure but no significant pain.
+
+Pain before procedure:
+
+1/10
+
+Pain during procedure:
+
+1/10
+
+Pain after procedure:
+
+0/10
+
+Post-debridement wound measurement:
+
+1.4 cm length × 1.0 cm width × 0.2 cm depth
+
+Post-debridement surface area:
+
+1.40 cm²
+
+Post-debridement volume:
+
+0.28 cm³
+
+Post-debridement wound bed:
+
+Greater than 95% healthy red granular tissue
+
+Hemostasis:
+
+Achieved with direct pressure
+
+Estimated blood loss:
+
+Less than 1 mL
+
+Specimen collected:
+
+None
+
+Complications:
+
+None
+
+Patient tolerance:
+
+The patient tolerated the procedure well and remained hemodynamically stable.
+
+APPLICATION DATE:
+
+July 27, 2026
+
+APPLICATION NUMBER:
+
+5 of the current treatment series
+
+APPLICATION START TIME:
+
+10:27 AM
+
+APPLICATION COMPLETION TIME:
+
+10:32 AM
+
+APPLIED BY:
+
+Emily Carter, MD
+
+ASSISTED BY:
+
+Jessica Monroe, RN
+
+PRODUCT NAME:
+
+AmchoPlast
+
+PRODUCT DESCRIPTION:
+
+Dehydrated human amnion-intermediate layer-chorion membrane allograft wound covering
+
+PRODUCT CONFIGURATION:
+
+14 mm circular disc
+
+PRODUCT PACKAGE SIZE:
+
+Approximately 1.54 cm²
+
+SAMPLE PRODUCT LOT NUMBER:
+
+ACP-26G0714-1842
+
+SAMPLE PRODUCT SERIAL OR UNIQUE IDENTIFIER:
+
+AMCP14-072726-008417
+
+SAMPLE EXPIRATION DATE:
+
+June 30, 2028
+
+SAMPLE DONOR OR TISSUE IDENTIFICATION NUMBER:
+
+DNR-458217-26
+
+PACKAGE INTEGRITY:
+
+The sterile package was inspected before opening and was intact without visible damage, moisture, or contamination.
+
+EXPIRATION VERIFICATION:
+
+The expiration date was reviewed and confirmed before product use.
+
+PRODUCT STORAGE:
+
+The product was stored in accordance with the manufacturer’s labeled storage requirements before application.
+
+WOUND-BED PREPARATION:
+
+Following debridement, the wound bed was cleansed with sterile normal saline. Hemostasis was confirmed before application.
+
+APPLICATION TECHNIQUE:
+
+The AmchoPlast disc was removed from its sterile packaging using aseptic technique.
+
+The product was placed directly over the prepared wound bed and positioned to achieve complete contact with viable wound tissue.
+
+The product conformed appropriately to the wound surface.
+
+AMOUNT OF PRODUCT AVAILABLE:
+
+Approximately 1.54 cm²
+
+AMOUNT OF PRODUCT APPLIED:
+
+Approximately 1.54 cm²
+
+AMOUNT OF PRODUCT DISCARDED:
+
+0 cm²
+
+PRODUCT WASTE:
+
+None
+
+REASON FOR NO WASTE:
+
+The full 14 mm disc was required to cover the prepared wound bed. The product was not divided, trimmed, or discarded.
+
+FIXATION AND SECONDARY DRESSING:
+
+The product was secured using a sterile silicone nonadherent contact layer.
+
+The contact layer was covered with:
+
+Sterile calcium alginate dressing
+Sterile 4-inch by 4-inch gauze
+Padded rolled gauze
+Self-adherent outer wrap applied without constriction
+
+The removable pneumatic offloading boot was reapplied before the patient stood or ambulated.
+
+IMMEDIATE RESPONSE:
+
+The patient tolerated the application without pain, bleeding, allergic reaction, vasovagal response, or other immediate complication.
+
+Distal perfusion remained intact following dressing application.
+
+Chronic diabetic and neuropathic ulcer of the right plantar forefoot with exposed subcutaneous tissue, improving, without clinical evidence of acute infection.
+Type 2 diabetes mellitus with diabetic foot ulcer.
+Diabetic peripheral neuropathy with reduced protective sensation.
+Acquired pressure prominence beneath the right first metatarsal head contributing to repetitive plantar pressure.
+Encounter for wound-bed preparation and AmchoPlast application number five.
+Long-term use of an offloading device for pressure reduction.
+Former tobacco use, currently abstinent.
+
+The wound demonstrates significant objective and subjective improvement with the current treatment plan.
+
+The wound surface area has decreased from 5.00 cm² at baseline to 1.17 cm² before debridement today, representing a 76.6% reduction in surface area.
+
+Wound volume has decreased from 1.50 cm³ at baseline to 0.234 cm³ before debridement today, representing an 84.4% reduction in volume.
+
+Additional evidence of improvement includes:
+
+Decreased wound length
+Decreased wound width
+Decreased wound depth
+Increased healthy granulation tissue
+Decreased fibrinous slough
+Decreased drainage
+Reduced wound-related pain
+Improved patient comfort
+Improved mobility while using the prescribed offloading device
+No clinical evidence of acute infection
+No exposed tendon, joint capsule, or bone
+No treatment-related adverse reaction
+Continued measurable progress between visits
+
+The patient appears to be responding favorably to AmchoPlast treatment in combination with serial debridement, pressure offloading, diabetes management, appropriate dressing care, vascular monitoring, and nutritional support.
+
+Continued offloading remains medically necessary because the wound is located on a weight-bearing plantar surface and the patient has reduced protective sensation secondary to diabetic neuropathy.
+
+AMCHOPLAST
+
+AmchoPlast application number five was completed today following excisional debridement and preparation of the wound bed.
+
+The patient tolerated the procedure without immediate complication.
+
+DRESSING CARE
+
+The patient was instructed to keep the primary dressing and contact layer clean, dry, and intact.
+
+The patient was instructed not to remove, lift, or disturb the silicone nonadherent contact layer.
+
+The current dressing should remain in place until the scheduled wound-care follow-up unless otherwise directed by the clinic.
+
+If the outer dressing becomes loose, the patient or caregiver may reinforce only the outer layer using clean rolled gauze after contacting the wound-care office.
+
+The patient was instructed to contact the office if the dressing becomes:
+
+Wet
+Displaced
+Saturated
+Visibly contaminated
+Malodorous
+Painful
+Excessively tight
+OFFLOADING
+
+Continue use of the prescribed removable pneumatic offloading boot during all standing and ambulation.
+
+The patient should apply the boot before standing.
+
+Avoid barefoot walking, including short trips inside the home.
+
+Limit unnecessary walking and prolonged standing.
+
+Avoid direct pressure over the plantar forefoot wound.
+
+Inspect the boot daily for foreign objects, moisture, or areas that could create friction or pressure.
+
+DIABETES MANAGEMENT
+
+Continue home blood glucose monitoring at least twice daily.
+
+Continue metformin extended-release 1,000 mg twice daily and empagliflozin 10 mg daily as prescribed by the patient’s primary-care provider.
+
+Maintain a blood glucose log and bring it to the next appointment.
+
+Contact the diabetes-management provider for repeated glucose readings above 200 mg/dL or below 70 mg/dL.
+
+NUTRITION
+
+Continue adequate dietary protein intake to support tissue repair.
+
+Recommended protein sources discussed include:
+
+Eggs
+Chicken
+Fish
+Greek yogurt
+Cottage cheese
+Protein supplementation as tolerated
+
+Continue approximately 64 ounces of fluid daily unless otherwise restricted by another treating clinician.
+
+TOBACCO
+
+Continue complete smoking and nicotine abstinence.
+
+INFECTION AND EMERGENCY PRECAUTIONS
+
+The patient was instructed to contact the wound-care clinic immediately for:
+
+Fever above 100.4°F
+Chills
+Rapidly increasing pain
+Spreading redness
+Increased warmth
+Increased swelling
+Purulent drainage
+Foul odor
+Dressing saturation
+New wound discoloration
+Black or dusky tissue
+New blistering
+New weakness
+Confusion
+Other signs of systemic illness
+
+The patient was instructed to seek emergency medical evaluation for rapidly progressive redness, severe pain, systemic illness, new loss of foot color or temperature, or other acute concerns.
+
+PATIENT EDUCATION
+
+The patient verbalized understanding of:
+
+The purpose of the treatment
+Dressing-care instructions
+Offloading requirements
+Diabetes-control recommendations
+Nutritional recommendations
+Infection warning signs
+Emergency precautions
+Follow-up requirements
+
+A printed wound-care instruction sheet was provided to the patient at 10:36 AM.
+
+FOLLOW-UP
+
+The patient is scheduled to return to AmeriWound Advanced Wound Care Center on August 3, 2026, at 10:00 AM.
+
+The next visit will include:
+
+Dressing removal
+Wound cleansing
+Repeat wound measurements
+Calculation of treatment response
+Evaluation of wound-bed quality
+Assessment for infection
+Assessment of vascular status
+Review of glucose readings
+Assessment of offloading compliance
+Evaluation for continued treatment
+Determination of whether AmchoPlast application number six is medically appropriate
+
+The patient was advised to contact the clinic before the scheduled appointment if any concerns arise.
+
+The following data are included solely for demonstration of how an AI documentation platform could populate structured fields. Final coding must be selected and verified by qualified clinical and billing personnel.
+
+PRIMARY DIAGNOSIS:
+
+Diabetic ulcer of the right midfoot with fat layer exposed
+
+SAMPLE ICD-10-CM:
+
+L97.412
+
+ASSOCIATED DIAGNOSIS:
+
+Type 2 diabetes mellitus with foot ulcer
+
+SAMPLE ICD-10-CM:
+
+E11.621
+
+ASSOCIATED DIAGNOSIS:
+
+Type 2 diabetes mellitus with diabetic polyneuropathy
+
+SAMPLE ICD-10-CM:
+
+E11.42
+
+SAMPLE PROCEDURE DESCRIPTION:
+
+Excisional debridement of skin and subcutaneous tissue, right plantar foot
+
+SAMPLE PRODUCT DOCUMENTATION:
+
+AmchoPlast, 14 mm disc, 1.54 cm² applied, no waste
+
+Final diagnosis selection, procedure coding, product coding, units, modifiers, medical-necessity criteria, and payer-specific coverage requirements must be reviewed and confirmed by the treating clinician and billing department before claim submission.
+
+This fictional demonstration note was generated using artificial intelligence from a simulated clinical encounter.
+
+I reviewed and edited this documentation. I confirm that the final note accurately reflects the history obtained, examination performed, medical decision-making, procedures completed, product used, and instructions provided during the simulated encounter.
+
+CLINICIAN NAME:
+
+Emily Carter, MD
+
+CLINICIAN ROLE:
+
+Wound Care Physician
+
+ELECTRONIC SIGNATURE:
+
+Electronically signed by Emily Carter, MD
+
+SIGNATURE DATE:
+
+July 27, 2026
+
+SIGNATURE TIME:
+
+11:04 AM Pacific Time
+
+NOTE STATUS:
+
+Reviewed and signed

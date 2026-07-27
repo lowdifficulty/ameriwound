@@ -4,6 +4,7 @@
  */
 import fs from "node:fs/promises";
 import path from "node:path";
+import { posix as pathPosix } from "node:path";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
@@ -43,22 +44,73 @@ function extractLocalStylesheets(html) {
   return hrefs;
 }
 
+/** @param {string} css @param {string} sourceHref */
+function rewriteCssRelativeUrls(css, sourceHref) {
+  const baseDir = pathPosix
+    .dirname(sourceHref.split("?")[0].replace(/\/+/g, "/"))
+    .replace(/\/+/g, "/");
+
+  return css.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/gi, (match, _quote, rawUrl) => {
+    const trimmed = rawUrl.trim();
+    if (/^(?:data:|https?:|\/)/i.test(trimmed)) return match;
+
+    const queryIdx = trimmed.indexOf("?");
+    const hashIdx = trimmed.indexOf("#");
+    let pathPart = trimmed;
+    let suffix = "";
+    if (queryIdx !== -1) {
+      pathPart = trimmed.slice(0, queryIdx);
+      suffix = trimmed.slice(queryIdx);
+    } else if (hashIdx !== -1) {
+      pathPart = trimmed.slice(0, hashIdx);
+      suffix = trimmed.slice(hashIdx);
+    }
+
+    const resolved = pathPosix.normalize(pathPosix.join(baseDir, pathPart)).replace(/\\/g, "/");
+    return `url("${resolved}${suffix}")`;
+  });
+}
+
+/** Fix relative url() paths in an already-built bundle using source comments. */
+function fixBundleRelativeUrls(css) {
+  const blocks = css.split(/(?=\/\* \/assets\/)/);
+  let out = blocks[0] ?? "";
+  for (let i = 1; i < blocks.length; i++) {
+    const block = blocks[i];
+    const header = block.match(/^\/\* (\/assets\/[^\s*]+) \*\/\n?/);
+    if (!header) {
+      out += block;
+      continue;
+    }
+    const sourceHref = header[1].split("?")[0].replace(/\/+/g, "/");
+    const rest = block.slice(header[0].length);
+    out += header[0] + rewriteCssRelativeUrls(rest, sourceHref);
+  }
+  return out;
+}
+
+function rewriteExternalAssetUrls(css) {
+  return css.replace(
+    /https?:\/\/(?:www\.)?ameriwound\.com(\/wp-content\/[^)"']+)/gi,
+    "/assets$1"
+  );
+}
+
 /** @param {string[]} hrefs */
 async function buildBundle(hrefs) {
   const parts = [];
   for (const href of hrefs) {
-    const diskPath = path.join(PUBLIC_DIR, href.replace(/^\//, ""));
+    const normalizedHref = href.split("?")[0].replace(/\/+/g, "/");
+    const diskPath = path.join(PUBLIC_DIR, normalizedHref.replace(/^\//, ""));
     try {
-      const css = await fs.readFile(diskPath, "utf8");
-      parts.push(`/* ${href} */\n${css}`);
+      let css = await fs.readFile(diskPath, "utf8");
+      css = rewriteCssRelativeUrls(css, normalizedHref);
+      parts.push(`/* ${normalizedHref} */\n${css}`);
     } catch {
-      parts.push(`/* missing: ${href} */\n`);
+      parts.push(`/* missing: ${normalizedHref} */\n`);
     }
   }
-  const combined = parts.join("\n").replace(
-    /https?:\/\/(?:www\.)?ameriwound\.com(\/wp-content\/[^)"']+)/gi,
-    "/assets$1"
-  );
+  const combined = rewriteExternalAssetUrls(parts.join("\n"));
   const hash = createHash("sha256").update(combined).digest("hex").slice(0, 12);
   const bundleName = `${hash}.css`;
   const bundlePath = path.join(BUNDLE_DIR, bundleName);
@@ -92,10 +144,7 @@ async function fixExistingBundles() {
     if (!name.endsWith(".css")) continue;
     const filePath = path.join(BUNDLE_DIR, name);
     const css = await fs.readFile(filePath, "utf8");
-    const next = css.replace(
-      /https?:\/\/(?:www\.)?ameriwound\.com(\/wp-content\/[^)"']+)/gi,
-      "/assets$1"
-    );
+    const next = fixBundleRelativeUrls(rewriteExternalAssetUrls(css));
     if (next !== css) {
       await fs.writeFile(filePath, next, "utf8");
       fixed++;

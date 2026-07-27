@@ -14,7 +14,7 @@
     "postmirror": "node scripts/process-html.mjs",
     "bundle-css": "node scripts/bundle-css.mjs",
     "download-assets": "node scripts/download-assets.mjs",
-    "prebuild": "node -e \"const{existsSync,readdirSync}=require('fs');const{execSync}=require('child_process');if(existsSync('mirror/html')){execSync('node scripts/process-html.mjs',{stdio:'inherit'});const wp='public/assets/wp-content';const needsAssets=!existsSync(wp)||(existsSync(wp)&&readdirSync(wp).length===0)||process.env.VERCEL==='1';if(needsAssets){execSync('node scripts/download-assets.mjs',{stdio:'inherit'})};execSync('node scripts/bundle-css.mjs',{stdio:'inherit'})}\""
+    "prebuild": "node -e \"const{existsSync,readdirSync}=require('fs');const{execSync}=require('child_process');if(existsSync('mirror/html')){execSync('node scripts/process-html.mjs',{stdio:'inherit'});const wp='public/assets/wp-content';const iconFont='public/assets/wp-content/plugins/medicate-core/public/css/vendor/font/flaticons/flaticon.woff';const navChunk='public/assets/wp-content/plugins/elementor-pro/assets/js/nav-menu.dc8790fd04afa5b6c0a3.bundle.min.js';const needsAssets=!existsSync(wp)||(existsSync(wp)&&readdirSync(wp).length===0)||process.env.VERCEL==='1'||!existsSync(iconFont)||!existsSync(navChunk);if(needsAssets){execSync('node scripts/download-assets.mjs',{stdio:'inherit'})};execSync('node scripts/bundle-css.mjs',{stdio:'inherit'})}\""
   },
   "dependencies": {
     "next": "^15.1.0",

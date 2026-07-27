@@ -4,6 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 const MIRROR_ROOT = path.join(process.cwd(), "mirror", "html");
 
+/** Live site uses /about/; mirror slug is about-ameriwound. */
+const ROUTE_ALIASES: Record<string, string> = {
+  "/about": "/about-ameriwound",
+};
+
 function normalizeRoute(slug?: string[]): string {
   if (!slug || slug.length === 0) return "/";
   const joined = slug.filter(Boolean).join("/");
@@ -23,7 +28,8 @@ export async function GET(
   context: { params: Promise<{ slug?: string[] }> }
 ) {
   const { slug } = await context.params;
-  const route = normalizeRoute(slug);
+  let route = normalizeRoute(slug);
+  route = ROUTE_ALIASES[route] ?? route;
   const htmlPath = htmlFileForRoute(route);
 
   try {

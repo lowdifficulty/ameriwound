@@ -4,6 +4,7 @@
  */
 import fs from "node:fs/promises";
 import path from "node:path";
+import { posix as pathPosix } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -49,6 +50,55 @@ function extractAssetPaths(html) {
   return paths;
 }
 
+/** @param {string} css @param {string} cssWpPath e.g. /wp-content/plugins/.../file.css */
+function extractCssAssetPaths(css, cssWpPath) {
+  /** @type {Set<string>} */
+  const paths = new Set();
+  const baseDir = pathPosix.dirname(cssWpPath);
+
+  for (const match of css.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/gi)) {
+    let url = match[1].trim();
+    if (url.startsWith("data:")) continue;
+
+    const clean = url.split("?")[0].split("#")[0];
+    if (!/\.[a-z0-9]{2,5}$/i.test(clean)) continue;
+
+    if (url.startsWith("/assets/wp-content/")) {
+      paths.add(clean.replace(/^\/assets/, ""));
+    } else if (/^https?:\/\/(?:www\.)?ameriwound\.com\/wp-content\//i.test(url)) {
+      paths.add(clean.replace(/^https?:\/\/(?:www\.)?ameriwound\.com/i, ""));
+    } else if (url.startsWith("/wp-content/")) {
+      paths.add(clean);
+    } else if (!/^https?:/i.test(url)) {
+      const resolved = pathPosix.normalize(pathPosix.join(baseDir, clean));
+      if (resolved.startsWith("/wp-content/")) paths.add(resolved);
+    }
+  }
+
+  return paths;
+}
+
+/** @param {string} dir */
+async function walkCssFiles(dir) {
+  /** @type {string[]} */
+  const files = [];
+  let entries;
+  try {
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch {
+    return files;
+  }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await walkCssFiles(full)));
+    } else if (entry.isFile() && entry.name.endsWith(".css")) {
+      files.push(full);
+    }
+  }
+  return files;
+}
+
 /** @param {string} dir */
 async function walkHtmlFiles(dir) {
   /** @type {string[]} */
@@ -63,6 +113,41 @@ async function walkHtmlFiles(dir) {
     }
   }
   return files;
+}
+
+const WEBPACK_RUNTIME_PATHS = [
+  "/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js",
+  "/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js",
+];
+
+/** @param {string} runtimeJs */
+function extractWebpackChunkFiles(runtimeJs) {
+  /** @type {Set<string>} */
+  const files = new Set();
+  for (const match of runtimeJs.matchAll(/\d+===e\?"([^"]+\.bundle\.min\.js)"/g)) {
+    files.add(match[1]);
+  }
+  return files;
+}
+
+/** @param {Set<string>} paths */
+async function collectWebpackChunkPaths(paths) {
+  for (const runtimePath of WEBPACK_RUNTIME_PATHS) {
+    const diskPath = path.join(PUBLIC_ASSETS, runtimePath.replace(/^\//, ""));
+    let runtimeJs;
+    try {
+      runtimeJs = await fs.readFile(diskPath, "utf8");
+    } catch {
+      const result = await downloadAsset(runtimePath);
+      if (result.status === "failed") continue;
+      runtimeJs = await fs.readFile(diskPath, "utf8");
+    }
+
+    const dir = path.posix.dirname(runtimePath);
+    for (const file of extractWebpackChunkFiles(runtimeJs)) {
+      paths.add(`${dir}/${file}`);
+    }
+  }
 }
 
 /** @param {string} wpPath */
@@ -115,6 +200,28 @@ async function main() {
     for (const p of extractAssetPaths(html)) allPaths.add(p);
   }
 
+  const wpContentDir = path.join(PUBLIC_ASSETS, "wp-content");
+  const cssFiles = await walkCssFiles(wpContentDir);
+  for (const cssFile of cssFiles) {
+    const rel = path.relative(wpContentDir, cssFile).replace(/\\/g, "/");
+    const cssWpPath = `/wp-content/${rel}`;
+    const css = await fs.readFile(cssFile, "utf8");
+    for (const p of extractCssAssetPaths(css, cssWpPath)) allPaths.add(p);
+  }
+
+  const bundleDir = path.join(PUBLIC_ASSETS, "bundles");
+  const bundleFiles = await walkCssFiles(bundleDir);
+  for (const cssFile of bundleFiles) {
+    const css = await fs.readFile(cssFile, "utf8");
+    for (const match of css.matchAll(/\/\* (\/assets\/wp-content\/[^\s*]+) \*\//g)) {
+      const sourceHref = match[1].split("?")[0].replace(/\/+/g, "/");
+      const cssWpPath = sourceHref.replace(/^\/assets/, "");
+      for (const p of extractCssAssetPaths(css, cssWpPath)) allPaths.add(p);
+    }
+    for (const p of extractAssetPaths(css)) allPaths.add(p);
+  }
+
+  await collectWebpackChunkPaths(allPaths);
   console.log(`Found ${allPaths.size} unique asset paths`);
 
   let downloaded = 0;

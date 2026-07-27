@@ -80,22 +80,32 @@ export default function LoginPage() {
       </div>
 
       <style jsx global>{`
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
         .ai-page {
           min-height: 100vh;
+          min-height: 100dvh;
+          width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
           background: linear-gradient(135deg, #0a3d62 0%, #1e6fa8 50%, #2980b9 100%);
           font-family: "Montserrat", "Segoe UI", system-ui, sans-serif;
-          padding: 2rem;
+          padding: 0;
+          box-sizing: border-box;
         }
         .ai-card {
           background: #fff;
           border-radius: 12px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
           padding: 2.5rem;
-          width: 100%;
+          width: calc(100% - 2rem);
           max-width: 420px;
+          margin: 1rem;
+          box-sizing: border-box;
         }
         .ai-brand {
           text-align: center;

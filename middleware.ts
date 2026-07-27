@@ -7,7 +7,8 @@ export async function middleware(request: NextRequest) {
 
   if (
     pathname.startsWith("/ameriwound-ai/dashboard") ||
-    pathname.startsWith("/ameriwound-ai/admin")
+    pathname.startsWith("/ameriwound-ai/admin") ||
+    pathname.startsWith("/ameriwound-ai/demo")
   ) {
     if (!(await isAuthenticated())) {
       return NextResponse.redirect(new URL("/ameriwound-ai/", request.url));
@@ -18,5 +19,9 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/ameriwound-ai/dashboard/:path*", "/ameriwound-ai/admin/:path*"],
+  matcher: [
+    "/ameriwound-ai/dashboard/:path*",
+    "/ameriwound-ai/admin/:path*",
+    "/ameriwound-ai/demo/:path*",
+  ],
 };

@@ -2,14 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { PortalHeader } from "../components/PortalHeader";
+import "./admin.css";
+
+interface KnowledgeHistoryEntry {
+  title: string;
+  content: string;
+  savedAt: string;
+}
 
 interface KnowledgeDump {
   id: string;
   title: string;
   content: string;
   createdAt: string;
+  updatedAt: string;
+  history: KnowledgeHistoryEntry[];
+  trainedAt: string | null;
 }
+
+const LEARN_DURATION_MS = 8000;
 
 export default function AdminPage() {
   const router = useRouter();
@@ -18,6 +30,12 @@ export default function AdminPage() {
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
+  const [expandedHistory, setExpandedHistory] = useState<string | null>(null);
+  const [learningId, setLearningId] = useState<string | null>(null);
+  const [learnProgress, setLearnProgress] = useState(0);
 
   async function loadDumps() {
     const res = await fetch("/api/admin/knowledge");
@@ -65,44 +83,108 @@ export default function AdminPage() {
     }
   }
 
+  function startEdit(dump: KnowledgeDump) {
+    setEditingId(dump.id);
+    setEditTitle(dump.title);
+    setEditContent(dump.content);
+    setExpandedHistory(null);
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
+    setEditTitle("");
+    setEditContent("");
+  }
+
+  async function handleSaveEdit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!editingId) return;
+    setLoading(true);
+    setStatus("");
+
+    try {
+      const res = await fetch("/api/admin/knowledge", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: editingId, title: editTitle, content: editContent }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus(data.error || "Failed to save changes.");
+        return;
+      }
+
+      setStatus("Knowledge dump updated.");
+      cancelEdit();
+      await loadDumps();
+    } catch {
+      setStatus("An error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleDelete(id: string) {
     if (!confirm("Delete this knowledge dump?")) return;
     await fetch(`/api/admin/knowledge?id=${encodeURIComponent(id)}`, {
       method: "DELETE",
     });
+    if (editingId === id) cancelEdit();
+    await loadDumps();
+  }
+
+  async function handleLearn(id: string) {
+    setLearningId(id);
+    setLearnProgress(0);
+    const start = performance.now();
+
+    await new Promise<void>((resolve) => {
+      const tick = () => {
+        const elapsed = performance.now() - start;
+        setLearnProgress(Math.min(100, (elapsed / LEARN_DURATION_MS) * 100));
+        if (elapsed < LEARN_DURATION_MS) {
+          requestAnimationFrame(tick);
+        } else {
+          resolve();
+        }
+      };
+      tick();
+    });
+
+    await fetch("/api/admin/knowledge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "learn", id }),
+    });
+
+    setLearningId(null);
+    setLearnProgress(0);
+    setStatus("Agent trained on knowledge dump.");
     await loadDumps();
   }
 
   return (
-    <div className="ai-dash">
-      <header className="ai-dash-header">
-        <div className="ai-dash-brand">
-          <img
-            src="/assets/wp-content/uploads/2024/11/site-logo350x100.svg"
-            alt="AmeriWound"
-            className="ai-dash-logo"
-          />
-          <span>AmeriWound AI — Admin</span>
+    <div className="portal">
+      <PortalHeader
+        title="Knowledge Base Admin"
+        onLogout={handleLogout}
+        dashboardHref="/ameriwound-ai/dashboard/"
+        adminHref=""
+      />
+
+      <main className="portal-main">
+        <div className="portal-hero">
+          <h1>Knowledge Base Admin</h1>
+          <p className="kb-sub">
+            Add, edit, and train the agent on clinical knowledge dumps used during note generation.
+          </p>
         </div>
-        <nav className="ai-dash-nav">
-          <Link href="/ameriwound-ai/dashboard/">Dashboard</Link>
-          <button onClick={handleLogout} className="ai-btn ai-btn-ghost">
-            Sign Out
-          </button>
-        </nav>
-      </header>
 
-      <main className="ai-dash-main">
-        <h1>Knowledge Base Admin</h1>
-        <p className="ai-dash-sub">
-          Add clinical knowledge dumps to improve wound care note generation.
-          These guidelines are included as context when generating notes.
-        </p>
-
-        <div className="ai-dash-grid">
-          <section className="ai-panel">
+        <div className="kb-grid">
+          <section className="kb-panel">
             <h2>Add Knowledge Dump</h2>
-            <form onSubmit={handleAdd} className="ai-admin-form">
+            <form onSubmit={handleAdd} className="kb-form">
               <label>
                 Title
                 <input
@@ -123,42 +205,103 @@ export default function AdminPage() {
                   required
                 />
               </label>
-              <button
-                type="submit"
-                disabled={loading}
-                className="ai-btn ai-btn-primary"
-              >
+              <button type="submit" disabled={loading} className="portal-btn portal-btn-primary">
                 {loading ? "Adding…" : "Add Knowledge Dump"}
               </button>
-              {status && <p className="ai-status">{status}</p>}
+              {status && <p className="kb-status">{status}</p>}
             </form>
           </section>
 
-          <section className="ai-panel">
+          <section className="kb-panel">
             <h2>Existing Knowledge ({dumps.length})</h2>
             {dumps.length === 0 ? (
-              <p className="ai-empty">No knowledge dumps yet.</p>
+              <p className="kb-empty">No knowledge dumps yet.</p>
             ) : (
-              <div className="ai-dump-list">
+              <div className="kb-dump-list">
                 {dumps.map((dump) => (
-                  <div key={dump.id} className="ai-dump-item">
-                    <div className="ai-dump-header">
-                      <strong>{dump.title}</strong>
-                      <button
-                        onClick={() => handleDelete(dump.id)}
-                        className="ai-btn ai-btn-danger"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                    <p className="ai-dump-preview">
-                      {dump.content.slice(0, 200)}
-                      {dump.content.length > 200 ? "…" : ""}
-                    </p>
-                    <span className="ai-dump-date">
-                      {new Date(dump.createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
+                  <article key={dump.id} className="kb-dump-item">
+                    {editingId === dump.id ? (
+                      <form onSubmit={handleSaveEdit} className="kb-form">
+                        <label>
+                          Title
+                          <input
+                            type="text"
+                            value={editTitle}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                            required
+                          />
+                        </label>
+                        <label>
+                          Content
+                          <textarea
+                            value={editContent}
+                            onChange={(e) => setEditContent(e.target.value)}
+                            rows={12}
+                            required
+                          />
+                        </label>
+                        <div className="kb-dump-actions">
+                          <button type="submit" className="portal-btn portal-btn-primary" disabled={loading}>
+                            Save Changes
+                          </button>
+                          <button type="button" className="portal-btn portal-btn-secondary" onClick={cancelEdit}>
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    ) : (
+                      <>
+                        <div className="kb-dump-header">
+                          <div>
+                            <strong>{dump.title}</strong>
+                            {dump.trainedAt && (
+                              <span className="kb-trained-badge">Trained {new Date(dump.trainedAt).toLocaleString()}</span>
+                            )}
+                          </div>
+                          <div className="kb-dump-actions">
+                            <button type="button" className="kb-btn-learn" onClick={() => handleLearn(dump.id)} disabled={!!learningId}>
+                              Learn
+                            </button>
+                            <button type="button" className="portal-btn portal-btn-secondary kb-btn-small" onClick={() => startEdit(dump)}>
+                              Edit
+                            </button>
+                            <button type="button" className="kb-btn-danger" onClick={() => handleDelete(dump.id)}>
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                        <p className="kb-dump-preview">
+                          {dump.content.slice(0, 220)}
+                          {dump.content.length > 220 ? "…" : ""}
+                        </p>
+                        <div className="kb-dump-meta">
+                          <span>Updated {new Date(dump.updatedAt).toLocaleString()}</span>
+                          {dump.history.length > 0 && (
+                            <button
+                              type="button"
+                              className="kb-history-toggle"
+                              onClick={() => setExpandedHistory(expandedHistory === dump.id ? null : dump.id)}
+                            >
+                              {expandedHistory === dump.id ? "Hide" : "Show"} history ({dump.history.length})
+                            </button>
+                          )}
+                        </div>
+                        {expandedHistory === dump.id && (
+                          <ul className="kb-history-list">
+                            {dump.history.map((entry, i) => (
+                              <li key={`${entry.savedAt}-${i}`}>
+                                <div className="kb-history-head">
+                                  <strong>{entry.title}</strong>
+                                  <span>{new Date(entry.savedAt).toLocaleString()}</span>
+                                </div>
+                                <p>{entry.content.slice(0, 180)}{entry.content.length > 180 ? "…" : ""}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    )}
+                  </article>
                 ))}
               </div>
             )}
@@ -166,165 +309,22 @@ export default function AdminPage() {
         </div>
       </main>
 
-      <style jsx global>{`
-        .ai-dash {
-          min-height: 100vh;
-          background: #f4f7fa;
-          font-family: "Montserrat", "Segoe UI", system-ui, sans-serif;
-        }
-        .ai-dash-header {
-          background: #0a3d62;
-          color: #fff;
-          padding: 1rem 2rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .ai-dash-brand {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          font-weight: 600;
-          font-size: 1.1rem;
-        }
-        .ai-dash-logo {
-          height: 36px;
-          filter: brightness(0) invert(1);
-        }
-        .ai-dash-nav {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-        .ai-dash-nav a {
-          color: #fff;
-          text-decoration: none;
-          font-size: 0.9rem;
-          opacity: 0.9;
-        }
-        .ai-dash-nav a:hover {
-          opacity: 1;
-          text-decoration: underline;
-        }
-        .ai-dash-main {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 2rem;
-        }
-        .ai-dash-main h1 {
-          color: #0a3d62;
-          margin: 0 0 0.5rem;
-        }
-        .ai-dash-sub {
-          color: #666;
-          margin: 0 0 2rem;
-        }
-        .ai-dash-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-        }
-        @media (max-width: 900px) {
-          .ai-dash-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-        .ai-panel {
-          background: #fff;
-          border-radius: 12px;
-          padding: 1.5rem;
-          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-        }
-        .ai-panel h2 {
-          color: #0a3d62;
-          font-size: 1.1rem;
-          margin: 0 0 1rem;
-        }
-        .ai-admin-form label {
-          display: block;
-          margin-bottom: 1rem;
-          font-size: 0.85rem;
-          font-weight: 600;
-          color: #333;
-        }
-        .ai-admin-form input,
-        .ai-admin-form textarea {
-          display: block;
-          width: 100%;
-          margin-top: 0.35rem;
-          padding: 0.75rem;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          font-size: 0.9rem;
-          font-family: inherit;
-          box-sizing: border-box;
-        }
-        .ai-btn {
-          display: inline-block;
-          padding: 0.6rem 1.2rem;
-          border: none;
-          border-radius: 8px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-        .ai-btn-primary {
-          background: #0a3d62;
-          color: #fff;
-        }
-        .ai-btn-primary:hover:not(:disabled) {
-          background: #0d4f7a;
-        }
-        .ai-btn-primary:disabled {
-          opacity: 0.5;
-        }
-        .ai-btn-ghost {
-          background: transparent;
-          color: #fff;
-          border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-        .ai-btn-danger {
-          background: #c0392b;
-          color: #fff;
-          padding: 0.3rem 0.6rem;
-          font-size: 0.75rem;
-        }
-        .ai-status {
-          margin-top: 1rem;
-          font-size: 0.85rem;
-          color: #2980b9;
-        }
-        .ai-empty {
-          color: #999;
-          font-size: 0.9rem;
-        }
-        .ai-dump-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-        .ai-dump-item {
-          padding: 1rem;
-          border: 1px solid #eee;
-          border-radius: 8px;
-        }
-        .ai-dump-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.5rem;
-        }
-        .ai-dump-preview {
-          font-size: 0.85rem;
-          color: #666;
-          margin: 0 0 0.5rem;
-          line-height: 1.4;
-        }
-        .ai-dump-date {
-          font-size: 0.75rem;
-          color: #999;
-        }
-      `}</style>
+      {learningId && (
+        <div className="kb-learn-overlay" role="status" aria-live="polite">
+          <div className="kb-learn-card">
+            <div className="kb-learn-orbit">
+              <span className="kb-learn-orbit__ring" />
+              <span className="kb-learn-orbit__core" />
+            </div>
+            <h3>Training agent…</h3>
+            <p>Ingesting knowledge dump into AW-Clinical context</p>
+            <div className="kb-learn-progress">
+              <div className="kb-learn-progress__bar" style={{ width: `${learnProgress}%` }} />
+            </div>
+            <span className="kb-learn-percent">{Math.round(learnProgress)}%</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
