@@ -22,11 +22,11 @@ const LISTENING_DURATION_MS = 900;
 const DEMO_PATIENT_NAME = "Robert Michael Hayes";
 
 const NOTES_HISTORY = [
-  { id: "current", date: "July 27, 2026", label: "Visit 1 — AmchoPlast Application #5" },
-  { id: "jul20", date: "July 20, 2026", label: "Visit 2 — AmchoPlast Application #4" },
-  { id: "jul13", date: "July 13, 2026", label: "Follow-up — AmchoPlast Application #3" },
-  { id: "jul6", date: "July 6, 2026", label: "Follow-up — AmchoPlast Application #2" },
-  { id: "jun29", date: "June 29, 2026", label: "Initial — AmchoPlast Application #1" },
+  { id: "current", date: "July 27, 2026", label: "AmchoPlast Application #5" },
+  { id: "jul20", date: "July 20, 2026", label: "AmchoPlast Application #4" },
+  { id: "jul13", date: "July 13, 2026", label: "AmchoPlast Application #3" },
+  { id: "jul6", date: "July 6, 2026", label: "AmchoPlast Application #2" },
+  { id: "jun29", date: "June 29, 2026", label: "AmchoPlast Application #1" },
 ];
 
 const ANALYSIS_ITEMS = [
