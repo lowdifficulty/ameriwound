@@ -53,6 +53,16 @@ const SHORELINE_CHECKS = [
   "Provider attestation & Medicare compliance met",
 ];
 
+const IVR_CHECKS = [
+  "Connecting to payer eligibility system",
+  "Verifying member ID and date of birth",
+  "Confirming Medicare Part B active coverage",
+  "Checking wound care and skin substitute benefits",
+];
+const IVR_DURATION_MS = 8_000;
+const IVR_SUCCESS_DELAY_MS = 400;
+const IVR_STEP_MS = (IVR_DURATION_MS - IVR_SUCCESS_DELAY_MS) / IVR_CHECKS.length;
+
 function EncounterAudio({ active, progress }: { active: boolean; progress: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef(0);
@@ -204,6 +214,10 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
   const [shorelineStep, setShorelineStep] = useState(0);
   const [shorelineSuccess, setShorelineSuccess] = useState(false);
   const [shorelineDone, setShorelineDone] = useState(false);
+  const [ivrModalOpen, setIvrModalOpen] = useState(false);
+  const [ivrStep, setIvrStep] = useState(0);
+  const [ivrSuccess, setIvrSuccess] = useState(false);
+  const [ivrDone, setIvrDone] = useState(false);
   const timers = useRef<number[]>([]);
   const rafRef = useRef<number | null>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -329,6 +343,10 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
     setShorelineStep(0);
     setShorelineSuccess(false);
     setShorelineDone(false);
+    setIvrModalOpen(false);
+    setIvrStep(0);
+    setIvrSuccess(false);
+    setIvrDone(false);
 
     addTimer(runTranscription, LISTENING_DURATION_MS);
   }, [addTimer, clearTimers, runTranscription]);
@@ -366,6 +384,17 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
     if (shorelineSuccess) setShorelineDone(true);
   }
 
+  function openIvrModal() {
+    setIvrModalOpen(true);
+    setIvrStep(0);
+    setIvrSuccess(false);
+  }
+
+  function closeIvrModal() {
+    setIvrModalOpen(false);
+    if (ivrSuccess) setIvrDone(true);
+  }
+
   useEffect(() => {
     if (!shorelineModalOpen || shorelineSuccess) return;
     if (shorelineStep >= SHORELINE_CHECKS.length) {
@@ -375,6 +404,16 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
     const id = window.setTimeout(() => setShorelineStep((s) => s + 1), 520);
     return () => window.clearTimeout(id);
   }, [shorelineModalOpen, shorelineStep, shorelineSuccess]);
+
+  useEffect(() => {
+    if (!ivrModalOpen || ivrSuccess) return;
+    if (ivrStep >= IVR_CHECKS.length) {
+      const id = window.setTimeout(() => setIvrSuccess(true), IVR_SUCCESS_DELAY_MS);
+      return () => window.clearTimeout(id);
+    }
+    const id = window.setTimeout(() => setIvrStep((s) => s + 1), IVR_STEP_MS);
+    return () => window.clearTimeout(id);
+  }, [ivrModalOpen, ivrStep, ivrSuccess]);
 
   const transcriptionDone =
     phase === "analyzing" || phase === "generating" || phase === "complete";
@@ -445,6 +484,14 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
                   disabled={shorelineDone}
                 >
                   {shorelineDone ? "Shoreline ✓" : "Shoreline"}
+                </button>
+                <button
+                  type="button"
+                  className="portal-btn portal-btn-secondary demo-shoreline-btn"
+                  onClick={openIvrModal}
+                  disabled={ivrDone}
+                >
+                  {ivrDone ? "IVR ✓" : "Run IVR"}
                 </button>
                 <button
                   type="button"
@@ -583,8 +630,7 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
               {transcriptionDone && (
                 <div className="demo-patient-bar">
                   <div className="demo-patient-bar__name">
-                    <span>Patient Name</span>
-                    <strong>{DEMO_PATIENT_NAME}</strong>
+                    <strong>PATIENT NAME: {DEMO_PATIENT_NAME}</strong>
                   </div>
                   <label className="demo-notes-history">
                     <span>Notes history</span>
@@ -646,6 +692,67 @@ export function DemoExperience({ transcriptRaw, soapRaw }: Props) {
           </section>
         </div>
       </main>
+
+      {ivrModalOpen && (
+        <div className="demo-modal-backdrop" role="presentation" onClick={closeIvrModal}>
+          <div
+            className="demo-modal demo-ivr-modal"
+            role="dialog"
+            aria-labelledby="ivr-modal-title"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="ivr-modal-title">Insurance Verification (IVR)</h2>
+            <p className="demo-modal__lead">
+              Running eligibility and benefits verification for {DEMO_PATIENT_NAME}.
+            </p>
+            {!ivrSuccess ? (
+              <ul className="demo-shoreline-checklist demo-ivr-checklist">
+                {IVR_CHECKS.map((item, i) => (
+                  <li
+                    key={item}
+                    className={i < ivrStep ? "done" : i === ivrStep ? "active" : ""}
+                  >
+                    <span className="demo-shoreline-check-icon" aria-hidden>
+                      {i < ivrStep ? "✓" : i === ivrStep ? "…" : ""}
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="demo-shoreline-success">
+                <div className="demo-shoreline-success__ring" aria-hidden>
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="3" />
+                    <path
+                      d="M20 33l8 8 16-18"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+                <p className="demo-shoreline-success__title">Verified</p>
+                <p className="demo-shoreline-success__lead">
+                  Medicare Part B active. Wound care and skin substitute benefits confirmed.
+                </p>
+              </div>
+            )}
+            <div className="demo-modal__actions">
+              <button
+                type="button"
+                className="portal-btn portal-btn-primary"
+                onClick={closeIvrModal}
+                disabled={!ivrSuccess}
+              >
+                {ivrSuccess ? "Close" : "Verifying…"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {shorelineModalOpen && (
         <div className="demo-modal-backdrop" role="presentation" onClick={closeShorelineModal}>

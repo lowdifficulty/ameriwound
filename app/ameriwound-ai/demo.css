@@ -341,6 +341,14 @@
   color: var(--aw-navy);
 }
 
+.demo-ivr-modal {
+  width: min(100%, 440px);
+}
+
+.demo-ivr-checklist {
+  margin-bottom: 1rem;
+}
+
 .demo-patient-bar__dates {
   display: flex;
   gap: 1.25rem;
