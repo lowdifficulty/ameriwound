@@ -157,8 +157,9 @@ export default function DashboardPage() {
         <div className="portal-hero">
           <h1>Wound Care Documentation</h1>
           <p>
-            Upload your encounter audio and wound images. AI transcribes the
-            recording and produces structured, clinical-grade documentation.
+            Transcribe audio recordings and produce
+            <br />
+            structured clinical documentation
           </p>
         </div>
 
