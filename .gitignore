@@ -10,3 +10,4 @@ lh-*.json
 
 # Downloaded at build time via npm run download-assets
 public/assets/wp-content/
+.vercel

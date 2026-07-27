@@ -1,0 +1,5 @@
+public/assets/wp-content/
+node_modules/
+.next/
+.local-server.log
+.local-server.pid
