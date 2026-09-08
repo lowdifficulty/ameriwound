@@ -1,9 +1,15 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { NextRequest, NextResponse } from "next/server";
-import { toFile } from "openai/uploads";
 import { isAuthenticated } from "@/lib/auth";
-import { getOpenAIClient, hasOpenAI } from "@/lib/openai";
 
 export const maxDuration = 120;
+
+async function getDemoTranscript(): Promise<string> {
+  const filePath = path.join(process.cwd(), "data", "demo-transcript.txt");
+  const raw = await readFile(filePath, "utf8");
+  return raw.trim();
+}
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated())) {
@@ -18,30 +24,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No audio file provided." }, { status: 400 });
     }
 
-    if (!hasOpenAI()) {
-      return NextResponse.json(
-        {
-          error:
-            "OPENAI_API_KEY is not configured. Add it to your environment variables.",
-        },
-        { status: 503 }
-      );
-    }
-
-    const client = getOpenAIClient()!;
-    const file = await toFile(
-      await audio.arrayBuffer(),
-      audio.name || "recording.webm",
-      { type: audio.type || "audio/webm" }
-    );
-
-    const transcription = await client.audio.transcriptions.create({
-      file,
-      model: "whisper-1",
-      language: "en",
-    });
-
-    return NextResponse.json({ transcript: transcription.text });
+    const transcript = await getDemoTranscript();
+    return NextResponse.json({ transcript });
   } catch (error) {
     console.error("Transcription failed:", error);
     const message =
