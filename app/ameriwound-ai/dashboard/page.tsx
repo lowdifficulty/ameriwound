@@ -60,8 +60,41 @@ export default function DashboardPage() {
   }
 
   async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await fetch("/api/auth/logout/", { method: "POST" });
     router.push("/ameriwound-ai/");
+  }
+
+  async function postJson(url: string, body: unknown, timeoutMs = 120_000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+      const data = await res.json().catch(() => ({}));
+      return { res, data };
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  async function postForm(url: string, formData: FormData, timeoutMs = 180_000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        body: formData,
+        signal: controller.signal,
+      });
+      const data = await res.json().catch(() => ({}));
+      return { res, data };
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   async function handleProcess() {
@@ -82,11 +115,10 @@ export default function DashboardPage() {
       const formData = new FormData();
       formData.append("audio", audioFile);
 
-      const transcribeRes = await fetch("/api/transcribe", {
-        method: "POST",
-        body: formData,
-      });
-      const transcribeData = await transcribeRes.json();
+      const { res: transcribeRes, data: transcribeData } = await postForm(
+        "/api/transcribe/",
+        formData
+      );
 
       if (!transcribeRes.ok) {
         setStatus(transcribeData.error || "Transcription failed.");
@@ -95,7 +127,14 @@ export default function DashboardPage() {
         return;
       }
 
-      const text = transcribeData.transcript;
+      const text = String(transcribeData.transcript ?? "").trim();
+      if (!text) {
+        setStatus("No speech detected in the audio recording. Try a clearer file.");
+        setStatusType("error");
+        setStep("upload");
+        return;
+      }
+
       setTranscript(text);
       setStep("generate");
       setStatus("Generating professional wound care notes…");
@@ -105,12 +144,10 @@ export default function DashboardPage() {
         (f, i) => `Image ${i + 1}: ${f.name} (wound photograph uploaded for documentation)`
       );
 
-      const notesRes = await fetch("/api/generate-notes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ transcript: text, imageDescriptions }),
-      });
-      const notesData = await notesRes.json();
+      const { res: notesRes, data: notesData } = await postJson(
+        "/api/generate-notes/",
+        { transcript: text, imageDescriptions }
+      );
 
       if (!notesRes.ok) {
         setStatus(notesData.error || "Note generation failed.");
@@ -123,8 +160,13 @@ export default function DashboardPage() {
       setStep("done");
       setStatus("Wound care notes generated successfully.");
       setStatusType("success");
-    } catch {
-      setStatus("Something went wrong. Please try again.");
+    } catch (error) {
+      const timedOut = error instanceof DOMException && error.name === "AbortError";
+      setStatus(
+        timedOut
+          ? "Processing timed out. Try a shorter recording or check your connection."
+          : "Something went wrong. Please try again."
+      );
       setStatusType("error");
       setStep("upload");
     } finally {

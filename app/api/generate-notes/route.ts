@@ -3,6 +3,8 @@ import { isAuthenticated } from "@/lib/auth";
 import { getKnowledgeContext } from "@/lib/knowledge";
 import { getOpenAIClient, hasOpenAI } from "@/lib/openai";
 
+export const maxDuration = 120;
+
 const SYSTEM_PROMPT = `You are an expert wound care clinical documentation specialist for AmeriWound.
 Transform the provided clinical encounter transcript into a perfect, professional wound care note.
 
@@ -39,26 +41,33 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const knowledge = await getKnowledgeContext();
-  const client = getOpenAIClient()!;
+  try {
+    const knowledge = await getKnowledgeContext();
+    const client = getOpenAIClient()!;
 
-  let userContent = `TRANSCRIPT:\n${transcript}`;
-  if (imageDescriptions.length > 0) {
-    userContent += `\n\nWOUND IMAGE OBSERVATIONS:\n${imageDescriptions.join("\n")}`;
+    let userContent = `TRANSCRIPT:\n${transcript}`;
+    if (imageDescriptions.length > 0) {
+      userContent += `\n\nWOUND IMAGE OBSERVATIONS:\n${imageDescriptions.join("\n")}`;
+    }
+    if (knowledge) {
+      userContent += `\n\nKNOWLEDGE BASE:\n${knowledge}`;
+    }
+
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userContent },
+      ],
+      temperature: 0.3,
+    });
+
+    const notes = completion.choices[0]?.message?.content ?? "";
+    return NextResponse.json({ notes });
+  } catch (error) {
+    console.error("Note generation failed:", error);
+    const message =
+      error instanceof Error ? error.message : "Note generation failed.";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-  if (knowledge) {
-    userContent += `\n\nKNOWLEDGE BASE:\n${knowledge}`;
-  }
-
-  const completion = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: userContent },
-    ],
-    temperature: 0.3,
-  });
-
-  const notes = completion.choices[0]?.message?.content ?? "";
-  return NextResponse.json({ notes });
 }

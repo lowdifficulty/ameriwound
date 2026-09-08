@@ -1,4 +1,12 @@
 {
+  "functions": {
+    "app/api/transcribe/route.ts": {
+      "maxDuration": 120
+    },
+    "app/api/generate-notes/route.ts": {
+      "maxDuration": 120
+    }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",
